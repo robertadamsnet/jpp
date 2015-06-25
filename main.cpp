@@ -1,12 +1,18 @@
-#include <functional>
+#include "action_map.hpp"
+#include "status_view.hpp"
+#include "user_interface.hpp"
 #include <tuple>
-#include <map>
+#include <functional>
 
-#include "terminal.hpp"
-#include "menu.hpp"
+
 
 int main() {
+  using namespace std;
+ 
+  UserInterface ui;
+
+  ui.show();
+
   return 0; 
 }
-
 
