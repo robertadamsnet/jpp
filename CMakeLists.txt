@@ -5,7 +5,5 @@ add_executable(jpp
   terminal.cpp 
   object.cpp 
   user_interface.cpp
-  action_view.cpp
-  action_map.cpp
 )
 target_link_libraries(jpp ncurses)
