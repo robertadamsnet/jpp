@@ -1,0 +1,3 @@
+[submodule "handle"]
+	path = handle
+	url = https://github.com/robertadamsnet/handle.git
