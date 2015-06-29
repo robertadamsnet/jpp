@@ -10,9 +10,11 @@
 
 class View {
 public:
-  void show() { return v_show(); }
+  void show() { v_show(); }
+  void refresh() { v_refresh(); }
 private:
-  virtual void v_show() = 0;
+  virtual void v_show() { v_refresh(); }
+  virtual void v_refresh() = 0;
 };
 
 #endif//view_hpp_2015_06_24_14_02
