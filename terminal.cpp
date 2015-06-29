@@ -37,6 +37,7 @@ namespace {
   }
 }
 
+/*
 class Terminal::Cache final {
 public:
   Cache()  {
@@ -47,6 +48,7 @@ public:
     cache_release();
   }
 };
+*/
 
 Terminal::Terminal() {
   static NCInit nc_init;
@@ -75,12 +77,12 @@ int Terminal::getch() {
 void Terminal::refresh() {
   Terminal t;
 #pragma pop_macro("refresh")
-  if(cache_count_)
+  //if(!cache_count_)
     ::refresh();
 #undef refresh
 }
 
-Rect Terminal::size() {
+Rect Terminal::rect() {
   Terminal t;
   int x, y;
   getmaxyx(stdscr, y, x);
