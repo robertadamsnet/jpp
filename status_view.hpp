@@ -20,18 +20,24 @@ public:
   void set_external(const std::string& s) { content_ref_ = s; }
   void set_internal() { content_ref_ = internal_; }
   const std::string& content() const { return content_ref_; }
+  void clear();
+  
+  int row() const { return Terminal::rect().bottom(); }
 private:
   std::reference_wrapper<const std::string> content_ref_;
   std::string internal_;
   virtual void v_show() override {
-    auto view_rect = Terminal::size();
-    Terminal::locate(view_rect.left(), view_rect.bottom());
-    std::string s = content();
-    auto print_len = 
-      content().size() > view_rect.width() ? 
-      view_rect.width() : content().size();
+    v_refresh();
+  }
 
-    Terminal::write(s.c_str(), s.size());
+  virtual void v_refresh() override {
+    clear();
+    auto view_rect = Terminal::rect();
+    Terminal::locate(view_rect.left(), view_rect.bottom());
+    int print_len = 
+      content().size()  < view_rect.width() ? 
+      content().size()  : view_rect.width();
+    Terminal::write(content().c_str(), print_len);
   }
 };
 
@@ -39,4 +45,11 @@ inline
 StatusView::StatusView() : content_ref_(internal_) {
 }
 
+inline
+void StatusView::clear() 
+{
+  auto view_rect = Terminal::rect();
+  Terminal::locate(view_rect.left(), view_rect.bottom());
+  Terminal::write(std::string(view_rect.width(), ' '));
+}
 #endif//status_view_hpp_2015_06_24_1559
