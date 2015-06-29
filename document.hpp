@@ -9,13 +9,7 @@
 #define document_hpp_2015_0626_1019 
 
 #include "object.hpp"
-enum class Result {
-  Ok,
-  Cancel,
-  Error,
-  Back,
-  ErrDuplicate
-};
+#include "result.hpp"
 
 class Controller;
 
