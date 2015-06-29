@@ -6,7 +6,6 @@
 
 */
 #include "user_interface.hpp"
-#include "scoped_call.hpp"
 #include "editor.hpp"
 #include "controller.hpp"
 
