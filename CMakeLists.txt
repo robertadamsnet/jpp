@@ -5,5 +5,11 @@ add_executable(jpp
   terminal.cpp 
   object.cpp 
   user_interface.cpp
+  document.cpp
+  form_dialog.cpp
+  editor.cpp
+  tree_view.cpp
+  controller.cpp
 )
-target_link_libraries(jpp ncurses)
+
+target_link_libraries(jpp curses form cdk)
