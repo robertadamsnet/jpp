@@ -23,11 +23,11 @@ public:
 
   static int              getch();
   static const Terminal&& no_echo();
-  static Rect             size();
-  static void             move(int, int);
-  static void             locate(int, int);
-  static void             write(const char*, int);
-  static void             write(const std::string&);
+  static Rect             rect();
+  static void             move(int y, int x);
+  static void             locate(int x, int y);
+  static void             write(const char* cstr, int sz);
+  static void             write(const std::string& str);
   static void             refresh();
 };
 
