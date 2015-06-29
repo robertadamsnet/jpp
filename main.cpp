@@ -1,24 +1,18 @@
 /*  
-  Copyright (c) 2015 by Robert T. Adams 
-  All Rights Reserved.
-  
-  See LICENSE.txt for licensing information.
+    Copyright (c) 2015 by Robert T. Adams 
+    All Rights Reserved.
+
+    See LICENSE.txt for licensing information.
 
 */
-#include "status_view.hpp"
+
 #include "user_interface.hpp"
-#include <tuple>
-#include <functional>
+#include "controller.hpp"
 
-
-
-int main() {
-  using namespace std;
- 
-  UserInterface ui;
-
+int main() { 
+  Controller control;
+  UserInterface ui(control);
   ui.show();
-
   return 0; 
 }
 
