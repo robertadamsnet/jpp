@@ -13,34 +13,36 @@
 
 class InsertCommand final : public Command {
 public:
-  InsertCommand(pointer_t& owner, const iterator_t& pos, pointer_t objptr);
+  InsertCommand(Object& target, const iterator_t& insert_pos, 
+      string name, string type);
 
 private:
-  pointer_t& owner_;
-  const iterator_t& pos_;
-  pointer_t objptr_;
-
+  Object& target_;
+  const iterator_t& insert_pos_;
+  Object item_;
   virtual auto v_commit() -> Result override;
   virtual auto v_undo() -> Result override;
-  
+
 };
 
-InsertCommand::InsertCommand(pointer_t& o, const iterator_t& p, 
-    pointer_t ptr) 
-  : owner_(o), pos_(p), objptr_(std::move(ptr))
+inline
+InsertCommand::InsertCommand(Object& t, const iterator_t& p,
+    string name, string type)
+  : target_(t), insert_pos_(p), item_(name, type)
 {
-   
+  
 }
 
-auto InsertCommand::v_commit() -> Result 
+inline
+auto InsertCommand::v_commit() -> Result
 {
-  owner_->insert(pos_, std::move(objptr_));  
-  return Result::Fail;  
+  return Result::Ok; 
 }
 
-auto InsertCommand::v_undo() -> Result 
+inline
+auto InsertCommand::v_undo() -> Result
 {
-  return Result::Fail;
+  return Result::Ok;
 }
 
 #endif//insert_comand_hpp_2015_0701_2020
