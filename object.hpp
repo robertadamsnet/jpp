@@ -20,12 +20,14 @@ enum Fields {
 class Object;
 
 typedef std::string string;
-typedef std::unique_ptr<Object> pointer_t;
-typedef std::list<pointer_t> members_t;
-typedef members_t::iterator iterator_t;
+//typedef std::unique_ptr<Object> object_ptr;
+typedef std::list<Object> members_t;
+typedef members_t::const_iterator iterator_t;
 
 class Object {
 public:
+  Object();
+  Object(string name, string type);
 
   auto name() const -> const string&;
   auto type() const -> const string&;
@@ -35,11 +37,10 @@ public:
 
   auto members() const -> const members_t&;
 
-  void insert(const iterator_t& p, pointer_t&& obj);
+  void move(Object& other, const iterator_t& item, 
+      const iterator_t insert_pos);
 
 private:
-  Object();
-
   string name_;
   string type_;
   tags_t tags_;
@@ -52,14 +53,29 @@ Object::Object() {
 }
 
 inline
+Object::Object(string n, string t)
+  : name_(n), type_(t) 
+{
+}
+
+inline
 auto Object::name() const -> const string&
 {
   return name_;
 }
 
 inline
-void Object::insert(const iterator_t& p, pointer_t&& obj) {
-  members_.insert(p, std::move(obj));
+void Object::move(Object& other, const iterator_t& item, 
+    const iterator_t insert_pos)
+{
+  members_.splice(insert_pos, other.members_, item);
 }
+
+inline
+auto Object::members() const -> const members_t&
+{
+  return members_;
+}
+
 
 #endif//object_hpp_2015_0624_1622

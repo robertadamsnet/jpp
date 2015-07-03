@@ -3,7 +3,6 @@
 
 #include "object.hpp"
 
-#include "document.hpp"
 #include "user_interface.hpp"
 #include "command.hpp"
 #include "history.hpp"
@@ -14,7 +13,6 @@ public:
   Controller();
 
 private:
-  Document doc_;
   UserInterface ui_;
   History history_;
 };
@@ -22,7 +20,7 @@ private:
 
 inline
 Controller::Controller() 
-  : doc_(Document(*this)), ui_(UserInterface(*this))
+  : ui_(UserInterface(*this))
 {
 }
 
