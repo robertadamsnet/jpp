@@ -10,6 +10,7 @@ add_executable(jpp
   editor.cpp
   tree_view.cpp
   controller.cpp
+  insert_command.cpp
 )
 
 target_link_libraries(jpp curses form cdk)

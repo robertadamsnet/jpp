@@ -12,7 +12,7 @@
 int main() { 
   Controller control;
   UserInterface ui(control);
-  ui.show();
+  ui.activate();
   return 0; 
 }
 

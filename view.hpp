@@ -10,10 +10,10 @@
 
 class View {
 public:
-  void show() { v_show(); }
+  void activate() { v_refresh(); v_activate(); }
   void refresh() { v_refresh(); }
 private:
-  virtual void v_show() { v_refresh(); }
+  virtual void v_activate() {} 
   virtual void v_refresh() = 0;
 };
 

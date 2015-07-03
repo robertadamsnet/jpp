@@ -15,10 +15,19 @@ UserInterface::UserInterface(Controller& c)
   Terminal::no_echo();
 }
 
-const StatusView& UserInterface::status() const {
-  return status_view_;
+void UserInterface::v_refresh() {
 }
 
+void UserInterface::v_activate() {
+
+}
+
+Controller& UserInterface::controller() const
+{
+  return controller_;
+}
+/*
+ * TODO: Deprecated...probably going to remove it
 void UserInterface::hard_coded_menu() {
   typedef std::vector<std::string> msg_stack_type;
   
@@ -97,7 +106,7 @@ void UserInterface::hard_coded_menu() {
 
 void UserInterface::create_class() {
   Object obj;
-  std::string& name = obj.get<Object::Name>();
+//  std::string& name = obj.get<Object::Name>();
 
   int column = status().content().size();
   int row = status().row();
@@ -105,12 +114,4 @@ void UserInterface::create_class() {
   Editor e(row, column, width, "Name: ");
   auto result = e.activate();  
 }
-
-void UserInterface::v_refresh() {
-  hard_coded_menu();
-}
-
-Controller& UserInterface::controller() const
-{
-  return controller_;
-}
+*/

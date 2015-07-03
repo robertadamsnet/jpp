@@ -25,17 +25,12 @@ class Controller;
 class UserInterface final : public virtual View {
 public:
   UserInterface(Controller&);
-  const StatusView& status() const;
-
-  void create_class();
 
   Controller& controller() const;
 private:
   Controller& controller_;
-  StatusView status_view_;
-  TreeView tree_view_;
   void v_refresh() override;  
-  void hard_coded_menu();
+  void v_activate() override;
 };
 
 

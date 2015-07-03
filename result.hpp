@@ -3,8 +3,8 @@
 
 enum class Result : int {
   Ok,
+  Fail,
   Cancel,
-  Error,
   Back,
   ErrDuplicate
 };

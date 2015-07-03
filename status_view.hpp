@@ -26,7 +26,7 @@ public:
 private:
   std::reference_wrapper<const std::string> content_ref_;
   std::string internal_;
-  virtual void v_show() override {
+  virtual void v_activate() override {
     v_refresh();
   }
 

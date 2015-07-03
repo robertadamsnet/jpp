@@ -5,17 +5,18 @@
 
 #include "document.hpp"
 #include "user_interface.hpp"
+#include "command.hpp"
+#include "history.hpp"
 
 class Controller {
 public:
+  typedef std::string string;
   Controller();
-
-
-  auto insert_object(const Object& parent, unsigned int position) -> Result;
 
 private:
   Document doc_;
   UserInterface ui_;
+  History history_;
 };
 
 
@@ -25,12 +26,5 @@ Controller::Controller()
 {
 }
 
-inline 
-auto Controller::insert_object(const Object& p, unsigned int pos)
-  -> Result
-{
-  doc_.insert(p, pos);
-  return Result::Ok;
-}
 
 #endif//controller_hpp_2015_0627_2213

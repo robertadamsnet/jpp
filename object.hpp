@@ -6,72 +6,60 @@
 #ifndef object_hpp_2015_0624_1622
 #define object_hpp_2015_0624_1622
 
-#include <set>
 #include <list>
 #include <string>
-#include <bitset>
+#include <set>
+#include <tuple>
 
-class Object final {
-public:
-  Object();
-  Object(const Object&) = default;
-  Object(Object&&) noexcept = default;
-  ~Object() = default;
-
-  enum Fields {
-    Name,
-    Type,
-    Tags,
-    Members
-  };
-
-  enum Bitset {
-    Pointer,
-    Reference,
-    Const,
-    Virtual,
-    Static,
-    Override,
-    Noexcept,
-    Default,
-    Pure,
-    FunctionPointer,
-    Lambda,
-    MAX_BITSET_COUNT
-  };
-
-  typedef std::bitset<MAX_BITSET_COUNT> bitset;
-  typedef std::string string;
-  typedef std::unique_ptr<Object> ObjPtr;
-  typedef std::list<Object> member_list;
-  typedef std::tuple<string, string, bitset, member_list> data_type;
-  
-
-  
-private:
-  data_type data_;
-
-public:
-  auto data() const -> const data_type& { return data_; }
-
-  template<Fields field>
-  auto get() const -> decltype(std::get<field>(data())) {
-    return std::get<field>(data_);
-  }
-
-  template<Fields field>
-  auto get() -> decltype(std::get<field>(data_)) {
-    return std::get<field>(data_);
-  }
-  
-  auto name() const -> const string&    { return get<Name>(); }
-  void set_name(string n)               { get<Name>() = n; }
+enum Fields {
+  Type,
+  Tags,
+  Members
 };
 
-typedef Object::ObjPtr ObjPtr;
+class Object;
 
-inline 
+typedef std::string string;
+typedef std::unique_ptr<Object> pointer_t;
+typedef std::list<pointer_t> members_t;
+typedef members_t::iterator iterator_t;
+
+class Object {
+public:
+
+  auto name() const -> const string&;
+  auto type() const -> const string&;
+
+  typedef std::set<string> tags_t;
+  auto tags() const -> const tags_t&;
+
+  auto members() const -> const members_t&;
+
+  void insert(const iterator_t& p, pointer_t&& obj);
+
+private:
+  Object();
+
+  string name_;
+  string type_;
+  tags_t tags_;
+
+  members_t members_;
+};
+
+inline
 Object::Object() {
+}
+
+inline
+auto Object::name() const -> const string&
+{
+  return name_;
+}
+
+inline
+void Object::insert(const iterator_t& p, pointer_t&& obj) {
+  members_.insert(p, std::move(obj));
 }
 
 #endif//object_hpp_2015_0624_1622
