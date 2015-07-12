@@ -29,6 +29,9 @@ public:
   static void             write(const char* cstr, int sz);
   static void             write(const std::string& str);
   static void             refresh();
+
+  static void             attr_reverse();
+  static void             attr_normal();
 };
 
 

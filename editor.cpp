@@ -42,13 +42,20 @@ void Editor::v_refresh() {
   drawCDKEntry(p->widget, false);
 }
 
-Editor::Result Editor::activate() {
+#include "result.hpp"
+
+Result Editor::show() {
   const char* result = activateCDKEntry(p->widget, nullptr);
   if(result == nullptr) {
     if(p->widget->exitType == vESCAPE_HIT) {
-      return Cancel;
+      return Result::Cancel;
     }
   }
   value_ = result;
-  return Ok;
+  return Result::Ok;
+}
+
+auto Editor::v_rect() const -> Rect
+{
+  return Rect(x(), y(), x() + width(), y());
 }

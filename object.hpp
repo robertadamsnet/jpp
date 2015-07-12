@@ -9,13 +9,7 @@
 #include <list>
 #include <string>
 #include <set>
-#include <tuple>
-
-enum Fields {
-  Type,
-  Tags,
-  Members
-};
+//#include <tuple>
 
 class Object;
 
@@ -23,6 +17,9 @@ typedef std::string string;
 //typedef std::unique_ptr<Object> object_ptr;
 typedef std::list<Object> members_t;
 typedef members_t::const_iterator iterator_t;
+typedef std::set<string> tags_t;
+
+namespace boost { namespace serialization { class access; }}
 
 class Object {
 public:
@@ -32,7 +29,6 @@ public:
   auto name() const -> const string&;
   auto type() const -> const string&;
 
-  typedef std::set<string> tags_t;
   auto tags() const -> const tags_t&;
 
   auto members() const -> const members_t&;
@@ -40,28 +36,73 @@ public:
   void move(Object& other, const iterator_t& item, 
       const iterator_t insert_pos);
 
-private:
-  string name_;
-  string type_;
-  tags_t tags_;
+  auto insert(iterator_t& pos, Object&& obj) -> iterator_t;
 
-  members_t members_;
+  auto append(Object&& obj) -> iterator_t;
+
+  auto operator==(const Object&) const -> bool;
+  auto operator!=(const Object& rhs) const -> bool { return !(*this == rhs); }
+
+  struct data_t {
+    string name;
+    string type;
+    tags_t tags;
+    members_t members;
+  } data_;
+
+private:
+  members_t& members_;
+
 };
 
+
 inline
-Object::Object() {
+auto Object::operator==(const Object& rhs) const -> bool
+{
+  if(name() == rhs.name()) 
+  {
+    if(type() == rhs.type()) 
+    {
+      if(tags() == rhs.tags())
+      {
+        if(members() == rhs.members())
+        {
+          return true;
+        }
+      }
+    }
+  }
+  return false;
 }
 
 inline
-Object::Object(string n, string t)
-  : name_(n), type_(t) 
+Object::Object() 
+  : members_(data_.members) 
 {
+}
+
+inline
+Object::Object(string n, string t) 
+  : data_({ n, t, tags_t(), members_t() }), members_(data_.members)
+{
+}
+
+inline
+auto Object::tags() const -> const tags_t&
+{
+  return data_.tags;
 }
 
 inline
 auto Object::name() const -> const string&
 {
-  return name_;
+  return data_.name;
+}
+
+inline
+auto Object::type() const -> const string&
+{
+  return data_.type;
 }
 
 inline
@@ -74,8 +115,17 @@ void Object::move(Object& other, const iterator_t& item,
 inline
 auto Object::members() const -> const members_t&
 {
-  return members_;
+  return data_.members;
 }
 
+inline
+auto Object::insert(iterator_t& pos, Object&& o) -> iterator_t {
+  return members_.insert(pos, std::move(o));
+}
+
+inline
+auto Object::append(Object&& o) -> iterator_t {
+  return members_.insert(members().end(), std::move(o));
+}
 
 #endif//object_hpp_2015_0624_1622

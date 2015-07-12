@@ -6,13 +6,25 @@
 
 */
 
-#include "user_interface.hpp"
-#include "controller.hpp"
+#include "serialize.hpp"
+#include "viewer.hpp"
+#include "terminal.hpp"
+#include <iostream>
+#include "cursor.hpp"
 
-int main() { 
-  Controller control;
-  UserInterface ui(control);
-  ui.activate();
+int main() {
+  using namespace std;
+  // load the demo file
+  auto doc = Document::from_file("demo.jpp");
+
+//  doc.to_file("demo2.jpp");
+
+  Terminal::getch();
+  // create the view
+  Viewer view(doc);
+
+  view.activate();
+
   return 0; 
 }
 

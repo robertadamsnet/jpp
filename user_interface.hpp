@@ -11,7 +11,6 @@
 class StatusView;
 
 #include "status_view.hpp"
-#include "tree_view.hpp"
 
 #include <map>
 #include <vector>
@@ -29,6 +28,7 @@ public:
   Controller& controller() const;
 private:
   Controller& controller_;
+  auto v_rect() const -> Rect override;
   void v_refresh() override;  
   void v_activate() override;
 };

@@ -114,3 +114,12 @@ void Terminal::write(const char* s, int n) {
 void Terminal::write(const std::string& s) {
   write(s.c_str(), s.size());
 }
+
+void Terminal::attr_reverse() {
+  attrset(A_REVERSE);
+}
+
+void Terminal::attr_normal() {
+  attrset(A_NORMAL);
+}
+

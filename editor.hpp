@@ -3,16 +3,14 @@
 
 #include "view.hpp"
 #include <string>
+#include <memory>
+
+enum class Result;
 
 class Editor final : public virtual View {
 public:
   ~Editor();
   typedef std::string string;
-
-  enum Result {
-    Ok,
-    Cancel
-  };
 
   Editor(int y, int x, int width);
   Editor(int y, int x, int width, string label);
@@ -21,10 +19,9 @@ public:
   const int& y() const { return y_; }
   const int& width() const { return width_; }
 
-  Result activate();
-
   const string& value() const { return value_; }
 
+  Result show();
 private:
   int x_;
   int y_;
@@ -34,6 +31,7 @@ private:
 
   struct impl;
   std::unique_ptr<impl> p;
+  auto v_rect() const -> Rect override;
   void v_refresh() override;
 };
 

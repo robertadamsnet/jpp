@@ -9,7 +9,7 @@
 #define rect_hpp_201506240948 
 
 template<class T>
-class BasicRect final {
+class BasicRect {
 public:
   typedef T value_type;
   
@@ -83,7 +83,6 @@ auto BasicRect<T>::bottom() const noexcept -> value_type {
 }
 
 typedef BasicRect<int> Rect;
-
 
 
 

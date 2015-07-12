@@ -26,6 +26,12 @@ public:
 private:
   std::reference_wrapper<const std::string> content_ref_;
   std::string internal_;
+  Rect rect_;
+
+  virtual auto v_rect() const -> Rect override {
+    return rect_;
+  }
+
   virtual void v_activate() override {
     v_refresh();
   }

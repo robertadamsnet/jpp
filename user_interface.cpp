@@ -15,6 +15,11 @@ UserInterface::UserInterface(Controller& c)
   Terminal::no_echo();
 }
 
+auto UserInterface::v_rect() const -> Rect
+{
+  return Terminal::rect();
+}
+
 void UserInterface::v_refresh() {
 }
 
